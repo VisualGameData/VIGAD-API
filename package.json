@@ -1,5 +1,5 @@
 {
-  "name": "501st-system-api",
+  "name": "Vigad-API",
   "version": "1.0.0",
   "description": "",
   "main": "app.ts",
@@ -13,8 +13,8 @@
     "type": "git",
     "url": "git+https://github.com/Claiyc/501st-System-API.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "VisualGameData",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Claiyc/501st-System-API/issues"
   },
