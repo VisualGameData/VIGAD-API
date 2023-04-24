@@ -1,0 +1,35 @@
+{
+  "name": "501st-system-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx tsc",
+    "start": "node dist/app.js",
+    "dev": "concurrently \"npx tsc -w\" \"nodemon dist/app.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Claiyc/501st-System-API.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Claiyc/501st-System-API/issues"
+  },
+  "homepage": "https://github.com/Claiyc/501st-System-API#readme",
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.3",
+    "@types/express": "^4.17.17",
+    "@types/node": "^18.14.1",
+    "concurrently": "^7.6.0",
+    "nodemon": "^2.0.20",
+    "typescript": "^4.9.5"
+  }
+}
