@@ -33,7 +33,9 @@ export default class RedisService {
                 this.client = null;
             });
 
-            await this.client.connect();
+            await this.client.connect().then(() => {
+                console.log('Redis client connected');
+            });
         }
     }
 
