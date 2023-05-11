@@ -14,7 +14,7 @@ export function getAuthorizationMW() {
             });
         }
         if (!authorized) {
-            res.end('{ "message": "Unauthorized" }');
+            res.status(401).end('{ "message": "Unauthorized" }');
         }
         return;
     }
