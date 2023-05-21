@@ -13,19 +13,19 @@ export default function(router: express.Router) {
             let data: any = {};
             const CAs = await redisService.sMembers('session:' + sessionToken + ':data');
             if (CAs) {
-                (CAs as []).forEach(async (caId: string) => {
-                    caId = caId.substring(caId.lastIndexOf(':') + 1, caId.length);
+                for (let i = 0; i < CAs.length; i++) {
+                    const caId: string = CAs[i].substring(CAs[i].lastIndexOf(':') + 1, CAs[i].length);
                     data[caId] = [];
                     const matches = await redisService.sMembers('session:' + sessionToken + ':ca:' + caId);
                     if (matches) {
-                        (matches as []).forEach(async (matchId: string) => {
-                            const match = await redisService.get('match:' + matchId, '.');
+                        for (let j = 0; j < matches.length; j++) {
+                            const match = await redisService.get(matches[i], '.');
                             if (match) {
                                 data[caId].push(match);
                             }
-                        });
+                        }
                     }
-                });
+                }
             }
             if (data) {
                 res.json(data);
