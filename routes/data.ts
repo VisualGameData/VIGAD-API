@@ -14,14 +14,13 @@ export default function(router: express.Router) {
             const CAs = await redisService.sMembers('session:' + sessionToken + ':data');
             if (CAs) {
                 for (let i = 0; i < CAs.length; i++) {
-                    const caId: string = CAs[i].substring(CAs[i].lastIndexOf(':') + 1, CAs[i].length);
-                    data[caId] = [];
-                    const matches = await redisService.sMembers('session:' + sessionToken + ':ca:' + caId);
+                    data[CAs[i]] = [];
+                    const matches = await redisService.sMembers('session:' + sessionToken + ':ca:' + CAs[i]);
                     if (matches) {
                         for (let j = 0; j < matches.length; j++) {
-                            const match = await redisService.get(matches[i], '.');
+                            const match = await redisService.get('match:' + matches[i], '.');
                             if (match) {
-                                data[caId].push(match);
+                                data[CAs[i]].push(match);
                             }
                         }
                     }
@@ -47,8 +46,8 @@ export default function(router: express.Router) {
         const matchId = Helper.makeId(16)
         try {
             await redisService.set('match:' + matchId, '.', data);
-            await redisService.sAdd('session:' + sessionToken + ':ca:' + caId, 'match:' + matchId)
-            await redisService.sAdd('session:' + sessionToken + ':data', 'session:' + sessionToken + ':ca:' + caId)
+            await redisService.sAdd('session:' + sessionToken + ':ca:' + caId, matchId)
+            await redisService.sAdd('session:' + sessionToken + ':data', caId)
         } catch(err) {
             console.error(err);
             res.status(500).end('{ "message": "Internal server error" }');
