@@ -18,7 +18,7 @@ export default function(router: express.Router) {
                     const matches = await redisService.sMembers('session:' + sessionToken + ':ca:' + CAs[i]);
                     if (matches) {
                         for (let j = 0; j < matches.length; j++) {
-                            const match = await redisService.get('match:' + matches[i], '.');
+                            const match = await redisService.get('match:' + matches[j], '.');
                             if (match) {
                                 data[CAs[i]].push(match);
                             }
