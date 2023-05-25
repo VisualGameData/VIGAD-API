@@ -34,32 +34,46 @@ export default class RedisService {
             });
 
             await this.client.connect().then(() => {
-                console.log('Redis client connected');
+                if (this.client) {
+                    console.log('Redis client connected');
+                }
             });
-        }
-    }
-
-    public async end(): Promise<void> {
-        if (this.client) {
-            await this.client.quit();
         }
     }
 
     public async get(key:string, path:string) {
         if (this.client) {
-            return await this.client!.json.get(key, { path: path });
+            return await this.client.json.get(key, { path: path });
         }
     }
 
     public async set(key:string, path:string, value:any) {
         if (this.client) {
-            await this.client!.json.set(key, path, value);
+            await this.client.json.set(key, path, value);
         }
     }
 
     public async del(key:string, path:string) {
         if (this.client) {
-            await this.client!.json.del(key, path);
+            await this.client.json.del(key, path);
+        }
+    }
+
+    public async sAdd(key:string, member:string) {
+        if (this.client) {
+            await this.client.sAdd(key, member);
+        }
+    }
+
+    public async sRem(key:string, member:string) {
+        if (this.client) {
+            await this.client.sRem(key, member);
+        }
+    }
+
+    public async sMembers(key:string) {
+        if (this.client) {
+            return await this.client.sMembers(key);
         }
     }
 }
